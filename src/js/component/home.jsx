@@ -8,11 +8,11 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const Home = () => {
 	const [item, setItem] = useState("");
 	const [todoList, setTodolist] = useState([]);
-	const handleRemoveItem = (e) => {
-		// const name = e.target.getAttribute("name")
-		setTodolist(todoList.filter((element) => element !== element));
-		console.log("clicked");
+	const line = (x) => {
+		const newList = todoList.filter((element) => element !== x);
+		setTodolist(newList);
 	};
+
 	return (
 		<>
 			<div className="input-group mb-3">
@@ -25,8 +25,10 @@ const Home = () => {
 				/>
 				<button
 					onClick={() => {
-						setTodolist([...todoList, item]);
-						console.log(todoList);
+						if (item !== "") {
+							setTodolist([...todoList, item]);
+							setItem("");
+						}
 					}}
 					type="btn btn-secondary"
 					className="input-group-test"
@@ -35,12 +37,20 @@ const Home = () => {
 				</button>
 			</div>
 			<ul>
-				{todoList.map((element, index) => (
-					<>
-						<li key={index}>{element}</li>
-						<button onClick={handleRemoveItem}>delete</button>
-					</>
-				))}
+				{todoList.map((element, index) => {
+					return (
+						<li key={index} className="mr-2">
+							{element}
+							<a
+								className="btn btn-primary"
+								onClick={() => {
+									line(element);
+								}}>
+								x
+							</a>
+						</li>
+					);
+				})}
 			</ul>
 		</>
 	);
