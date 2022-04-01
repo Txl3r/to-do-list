@@ -9,7 +9,7 @@ const Home = () => {
 	const [item, setItem] = useState("");
 	const [todoList, setTodolist] = useState([]);
 	const line = (x) => {
-		const newList = todoList.filter((element) => element !== x);
+		const newList = todoList.filter((element, index) => index !== x);
 		setTodolist(newList);
 	};
 
@@ -44,7 +44,7 @@ const Home = () => {
 							<a
 								className="btn btn-primary"
 								onClick={() => {
-									line(element);
+									line(index);
 								}}>
 								x
 							</a>
